@@ -1,0 +1,9 @@
+CompileFlags:
+  Remove:
+    - "-mlongcalls"
+    - "-fstrict-volatile-bitfields"
+    - "-fno-tree-switch-conversion"
+    - "-mfix-esp32-psram-cache-issue"
+  Add:
+    - "-isystem"
+    - "C:/Users/leduc/.platformio/packages/toolchain-xtensa-esp32/xtensa-esp32-elf/include"
