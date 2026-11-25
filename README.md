@@ -1,4 +1,6 @@
-# HỆ THỐNG IOT GIÁM SÁT VÀ CẢNH BÁO BẤT THƯỜNG ĐIỆN NĂNG CỦA THIẾT BỊ DÂN DỤNG
+# HỆ THỐNG GIÁM SÁT VÀ CẢNH BÁO QUÁ TẢI ĐIỆN NĂNG THÔNG MINH
+
+> Đề tài 21 – Học phần Internet of Things (tên theo đề cương: *Hệ thống giám sát điện năng và tự ngắt máy móc khi quá tải*; phạm vi: thiết bị điện dân dụng).
 
 > **Trường:** Đại học Công Thương TP. Hồ Chí Minh (HUIT)  
 > **Giảng viên hướng dẫn:** ThS. Võ Hoàng Hải  
@@ -10,17 +12,33 @@
 
 ---
 
+## Hồ sơ nộp bài
+
+| Hạng mục | File / Link |
+| :--- | :--- |
+| Báo cáo kỹ thuật (50 trang) | [`Bao_cao/BaoCao_DoAn_IoT_Nhom16.pdf`](Bao_cao/BaoCao_DoAn_IoT_Nhom16.pdf) · bản Word [`.docx`](Bao_cao/BaoCao_DoAn_IoT_Nhom16.docx) |
+| Slide thuyết trình | [`docs/slides/Slide_IoT_Nhom16.pdf`](docs/slides/Slide_IoT_Nhom16.pdf) · link Canva trong [`docs/slides/link-canva.txt`](docs/slides/link-canva.txt) |
+| Báo cáo tiến độ tuần 6–14 | [`docs/bao-cao-tuan/Bao_Cao_Tuan_Nhom16.xlsx`](docs/bao-cao-tuan/Bao_Cao_Tuan_Nhom16.xlsx) |
+| Mô phỏng Wokwi | https://wokwi.com/projects/477826305121504257 |
+| Firmware ESP32 | [`src/main.cpp`](src/main.cpp) (2 luồng FreeRTOS: bảo vệ 10 ms + mạng) |
+| Flow Node-RED | [`node-red/flows.json`](node-red/flows.json) |
+| Kết quả kiểm thử | 11/11 kịch bản T1–T11 đạt (chương 5 báo cáo); chạy lại T1–T8 với broker riêng ngày 24/11/2026 |
+
 ## Cấu trúc thư mục
 
 | Đường dẫn | Nội dung |
 | :--- | :--- |
 | `src/main.cpp` | Firmware **duy nhất**. Build bằng PlatformIO, và copy nguyên file sang tab `sketch.ino` trên Wokwi web để chạy online |
+| `src/secrets.h.example` | Mẫu thông tin broker. Chép thành `src/secrets.h` (không đưa lên git) rồi điền host, tài khoản, mật khẩu. Trên Wokwi web là tab `secrets.h` |
 | `diagram.json`, `wokwi.toml`, `platformio.ini` | Sơ đồ mạch Wokwi, cấu hình mô phỏng VS Code, cấu hình build |
-| `node-red/flows.json` | Flow Node-RED (Import vào `http://localhost:1880`), dashboard tại `http://localhost:1880/ui` |
-| `docs/` | Tài liệu chuyển giao, syllabus, báo cáo tuần, slide |
-| `images/` | Ảnh minh chứng nghiệm thu T1–T8 |
+| `node-red/flows.json` | Flow Node-RED (Import vào `http://localhost:1880`), dashboard tại `http://localhost:1880/ui` (có đăng nhập) |
+| `Bao_cao/` | Báo cáo Word/PDF, nội dung Markdown từng chương (`md/`), hình (`hinh/`), script dựng báo cáo (`py/`), sơ đồ draw.io (`so_do/`) |
+| `docs/` | Slide, báo cáo tiến độ tuần, đề cương, tài liệu chuyển giao |
+| `images/` | Ảnh minh chứng nghiệm thu T1–T8 (giai đoạn dùng broker công cộng) |
 
-> Broker MQTT dùng chung cho ESP32 và Node-RED: **`broker.emqx.io:1883`**.
+> **Broker MQTT (từ 24/11/2026):** broker riêng **EMQX Cloud Serverless**, cổng **8883 (TLS)**, bắt buộc tài khoản (ESP32 và Node-RED mỗi bên một tài khoản). ESP32 kiểm tra chứng chỉ máy chủ bằng DigiCert Global Root CA. Trước đó nhóm dùng broker công cộng `broker.emqx.io:1883`, nên các ảnh minh chứng cũ ở mục 9 vẫn hiện broker này.
+>
+> **Bảo mật theo tầng** (mục 3.8 báo cáo): mạng (TLS + tài khoản), trang soạn luồng Node-RED và Dashboard đều có đăng nhập; tầng thiết bị (mã hóa flash, secure boot) để lại khi làm mạch thật.
 
 ---
 
@@ -160,6 +178,8 @@ Bạn có thể xem dữ liệu in ra theo 2 cách:
 ---
 
 ## 8. Tầng mạng MQTT & Ma trận Kiểm thử (Tuần 8)
+
+> Mục 8–9 ghi lại kết quả kiểm thử giai đoạn tuần 8 (broker công cộng, xem tin bằng HiveMQ Web Client). Kết quả cuối cùng T1–T11, bản sửa firmware 2 luồng và lần chạy lại với broker riêng có TLS nằm ở chương 5 của [báo cáo](Bao_cao/BaoCao_DoAn_IoT_Nhom16.pdf).
 
 ### 8.1. Bản đồ Topic & Định dạng Payload (JSON)
 
