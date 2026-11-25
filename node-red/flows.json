@@ -1,0 +1,608 @@
+[
+    {
+        "id": "256994368d45d3ad",
+        "type": "tab",
+        "label": "Điện ",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "914f9d3e894f870f",
+        "type": "mqtt-broker",
+        "name": "nodered_nhom16",
+        "broker": "a1121f66.ala.us-east-1.emqxsl.com",
+        "port": "8883",
+        "tls": "",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "5ab06449ef0cbc9b",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "0a286e313a80162e",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "196b300f0ecf2c3e",
+        "type": "ui_group",
+        "name": "Giám sát phụ tải",
+        "tab": "5ab06449ef0cbc9b",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "cc476f1c7594a2f0",
+        "type": "mqtt in",
+        "z": "256994368d45d3ad",
+        "name": "",
+        "topic": "nhom16/bai21/telemetry",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "914f9d3e894f870f",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 600,
+        "wires": [
+            [
+                "b72bdcbd59e21af5"
+            ]
+        ]
+    },
+    {
+        "id": "b72bdcbd59e21af5",
+        "type": "json",
+        "z": "256994368d45d3ad",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 430,
+        "y": 600,
+        "wires": [
+            [
+                "74bbc3a3f531ad44",
+                "eda2e88e82d1d61e",
+                "9719ad5fa782beb6"
+            ]
+        ]
+    },
+    {
+        "id": "74bbc3a3f531ad44",
+        "type": "function",
+        "z": "256994368d45d3ad",
+        "name": "Tách U, I, P",
+        "func": "let data = msg.payload;\n\n// Tự động giải mã nếu dữ liệu còn ở dạng chuỗi\nif (typeof data === \"string\") {\n    try {\n        data = JSON.parse(data);\n    } catch (e) {\n        data = {};\n    }\n}\n\n// 1. Bóc tách dữ liệu từ ESP32\nconst p = Number(data.P ?? data.power ?? 0);\nconst u = Number(data.U ?? data.voltage ?? 220);\nconst i = Number(data.I ?? data.current ?? 0);\nconst e = Number(data.E ?? 0).toFixed(4); // Lấy 4 số thập phân cho kWh\nconst state = String(data.state ?? \"NORMAL\");\n\n// 2. Đóng gói ra 5 cổng\nconst msgP = { payload: p, topic: \"Công suất (W)\" };\nconst msgU = { payload: u, topic: \"Điện áp (V)\" };\nconst msgI = { payload: i, topic: \"Dòng điện (A)\" };\nconst msgE = { payload: `${e} kWh`, topic: \"Điện năng tiêu thụ\" };\nconst msgState = { payload: state, topic: \"Trạng thái hệ thống\" };\n\nreturn [msgP, msgU, msgI, msgE, msgState];",
+        "outputs": 5,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1110,
+        "y": 600,
+        "wires": [
+            [
+                "782b9409c85230e9",
+                "d455c4d3b147a7c8"
+            ],
+            [
+                "153d6058b72aac8e"
+            ],
+            [
+                "46e48cf9549b5a03"
+            ],
+            [
+                "10b157637cd650be",
+                "a46a40366ce311cb"
+            ],
+            [
+                "5e34ee18b91793e9"
+            ]
+        ]
+    },
+    {
+        "id": "782b9409c85230e9",
+        "type": "ui_chart",
+        "z": "256994368d45d3ad",
+        "name": "",
+        "group": "196b300f0ecf2c3e",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Công suất tiêu thụ (W)",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1440,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "153d6058b72aac8e",
+        "type": "ui_gauge",
+        "z": "256994368d45d3ad",
+        "name": "",
+        "group": "196b300f0ecf2c3e",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Điện áp",
+        "label": "V",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "250",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1400,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "46e48cf9549b5a03",
+        "type": "ui_gauge",
+        "z": "256994368d45d3ad",
+        "name": "",
+        "group": "196b300f0ecf2c3e",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Dòng điện phụ tải",
+        "label": "A",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "20",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1430,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "d455c4d3b147a7c8",
+        "type": "switch",
+        "z": "256994368d45d3ad",
+        "name": "Kiểm tra quá tải (>1200W)",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "1200",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1420,
+        "y": 480,
+        "wires": [
+            [
+                "6bfafdd09dc58f20"
+            ]
+        ]
+    },
+    {
+        "id": "6bfafdd09dc58f20",
+        "type": "debug",
+        "z": "256994368d45d3ad",
+        "name": "Cảnh báo quá tải",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1710,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "8c9ddfb197941dfe",
+        "type": "ui_button",
+        "z": "256994368d45d3ad",
+        "name": "",
+        "group": "196b300f0ecf2c3e",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "CẮT TẢI KHẨN CẤP",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "{\"cmd\": \"relay_off\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 180,
+        "y": 820,
+        "wires": [
+            [
+                "0a1bcfcc3327c37d"
+            ]
+        ]
+    },
+    {
+        "id": "0a1bcfcc3327c37d",
+        "type": "mqtt out",
+        "z": "256994368d45d3ad",
+        "name": "",
+        "topic": "nhom16/bai21/control",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "914f9d3e894f870f",
+        "x": 500,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "eda2e88e82d1d61e",
+        "type": "debug",
+        "z": "256994368d45d3ad",
+        "name": "Log dữ liệu thô",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "10b157637cd650be",
+        "type": "ui_text",
+        "z": "256994368d45d3ad",
+        "group": "196b300f0ecf2c3e",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Điện năng tiêu thụ (E)",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1440,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "5e34ee18b91793e9",
+        "type": "ui_text",
+        "z": "256994368d45d3ad",
+        "group": "196b300f0ecf2c3e",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Trạng thái lưới điện",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1410,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "d064bec2e099d215",
+        "type": "ui_button",
+        "z": "256994368d45d3ad",
+        "name": "",
+        "group": "196b300f0ecf2c3e",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "BẬT / KHÔI PHỤC NGUỒN",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#28a745",
+        "className": "",
+        "icon": "",
+        "payload": "{\"cmd\": \"relay_on\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 200,
+        "y": 900,
+        "wires": [
+            [
+                "0a1bcfcc3327c37d"
+            ]
+        ]
+    },
+    {
+        "id": "a46a40366ce311cb",
+        "type": "function",
+        "z": "256994368d45d3ad",
+        "name": "Tính tiền điện",
+        "func": "// Lấy số kWh từ chuỗi \"0.0026 kWh\"\nlet e = parseFloat(msg.payload) || 0;\nlet tien = 0;\n\n// Tính lũy tiến 6 bậc EVN cơ bản\nif (e <= 50) tien = e * 1893;\nelse if (e <= 100) tien = 50 * 1893 + (e - 50) * 1956;\nelse if (e <= 200) tien = 50 * 1893 + 50 * 1956 + (e - 100) * 2271;\nelse tien = 50 * 1893 + 50 * 1956 + 100 * 2271 + (e - 200) * 2860;\n\n// Format sang tiền Việt (VD: 15.200 VNĐ)\nmsg.payload = Math.round(tien).toLocaleString('vi-VN') + \" VNĐ\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 840,
+        "wires": [
+            [
+                "c87701a151dba308"
+            ]
+        ]
+    },
+    {
+        "id": "c87701a151dba308",
+        "type": "ui_text",
+        "z": "256994368d45d3ad",
+        "group": "196b300f0ecf2c3e",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Tiền điện tạm tính",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1670,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "f1ea5dcd519fef71",
+        "type": "function",
+        "z": "256994368d45d3ad",
+        "name": "Định dạng CSV",
+        "func": "const d = msg.payload;\nconst time = new Date().toLocaleString('vi-VN');\nmsg.payload = `${time},${d.U},${d.I},${d.P},${d.E},${d.state}`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 760,
+        "wires": [
+            [
+                "ef7cd42cac8a94b5"
+            ]
+        ]
+    },
+    {
+        "id": "9719ad5fa782beb6",
+        "type": "delay",
+        "z": "256994368d45d3ad",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "30",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 640,
+        "y": 700,
+        "wires": [
+            [
+                "f1ea5dcd519fef71"
+            ]
+        ]
+    },
+    {
+        "id": "ef7cd42cac8a94b5",
+        "type": "file",
+        "z": "256994368d45d3ad",
+        "name": "",
+        "filename": "/data/power_log.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1100,
+        "y": 840,
+        "wires": [
+            []
+        ]
+    }
+]

@@ -10,6 +10,20 @@
 
 ---
 
+## Cấu trúc thư mục
+
+| Đường dẫn | Nội dung |
+| :--- | :--- |
+| `src/main.cpp` | Firmware **duy nhất**. Build bằng PlatformIO, và copy nguyên file sang tab `sketch.ino` trên Wokwi web để chạy online |
+| `diagram.json`, `wokwi.toml`, `platformio.ini` | Sơ đồ mạch Wokwi, cấu hình mô phỏng VS Code, cấu hình build |
+| `node-red/flows.json` | Flow Node-RED (Import vào `http://localhost:1880`), dashboard tại `http://localhost:1880/ui` |
+| `docs/` | Tài liệu chuyển giao, syllabus, báo cáo tuần, slide |
+| `images/` | Ảnh minh chứng nghiệm thu T1–T8 |
+
+> Broker MQTT dùng chung cho ESP32 và Node-RED: **`broker.emqx.io:1883`**.
+
+---
+
 ## 1. Giới thiệu Đề tài
 
 Dự án nghiên cứu và triển khai mô hình IoT giám sát mức tiêu thụ điện năng của các thiết bị dân dụng (nồi cơm điện, quạt, tivi, bình đun, máy giặt...) trong thời gian thực. Hệ thống tự động phân tích và phát hiện các tình huống bất thường (quá tải, chập cháy, quên tắt thiết bị) nhằm đưa ra cảnh báo kịp thời bằng âm thanh, ánh sáng và dữ liệu log.
@@ -80,7 +94,7 @@ Cần cài đặt sẵn trên máy tính:
 > **Lưu ý về License Wokwi:** Khi dùng lần đầu, nhấn `Ctrl+Shift+P` $\to$ chọn `Wokwi: Request a 30-day Free License` và làm theo hướng dẫn trên web để kích hoạt.
 
 ### Bước 2: Biên dịch Firmware (Build)
-Mở Terminal trong thư mục dự án (`c:\LeDucLuong\HK VII\IoT\Buoi04`), chạy lệnh:
+Mở Terminal trong thư mục dự án (`c:\LeDucLuong\HK VII\IoT\DoAn`), chạy lệnh:
 ```powershell
 pio run
 ```
